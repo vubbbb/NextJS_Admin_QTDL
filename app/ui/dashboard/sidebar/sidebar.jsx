@@ -1,89 +1,129 @@
 import {
-    MdDashboard,
-    MdSupervisedUserCircle,
-    MdShoppingBag,
-    MdAttachMoney,
-    MdWork,
-    MdAnalytics,
-    MdPeople,
-    MdOutlineSettings,
-    MdHelpCenter,
-    // MdLogout,
-  } from "react-icons/md";
+  MdDashboard,
+  MdSupervisedUserCircle,
+//   MdShoppingBag,
+//   MdAttachMoney,
+//   MdWork,
+//   MdAnalytics,
+//   MdPeople,
+  MdOutlineSettings,
+  MdHelpCenter,
+  // MdLogout,
+} from "react-icons/md";
 
 const menuItems = [
-    {
-      title: "Pages",
-      list: [
+  {
+    title: "Phòng ban",
+    list: [
+      {
+        title: "Danh sách",
+        path: "/dashboard/phongban/danhsach",
+        icon: <MdDashboard />,
+      },
+      {
+        title: "Thêm, sửa, xóa",
+        path: "/dashboard/phongban/quanli",
+        icon: <MdSupervisedUserCircle />,
+      },
+    ],
+  },
+  {
+    title: "Nhân viên",
+    list: [
         {
-          title: "Dashboard",
-          path: "/dashboard",
+          title: "Danh sách",
+          path: "/dashboard/nhanvien/danhsach",
           icon: <MdDashboard />,
         },
         {
-          title: "Users",
-          path: "/dashboard/users",
+          title: "Thêm, sửa, xóa",
+          path: "/dashboard/nhanvien/quanli",
           icon: <MdSupervisedUserCircle />,
         },
-        {
-          title: "Products",
-          path: "/dashboard/products",
-          icon: <MdShoppingBag />,
-        },
-        {
-          title: "Transactions",
-          path: "/dashboard/transactions",
-          icon: <MdAttachMoney />,
-        },
       ],
-    },
-    {
-      title: "Analytics",
-      list: [
-        {
-          title: "Revenue",
-          path: "/dashboard/revenue",
-          icon: <MdWork />,
-        },
-        {
-          title: "Reports",
-          path: "/dashboard/reports",
-          icon: <MdAnalytics />,
-        },
-        {
-          title: "Teams",
-          path: "/dashboard/teams",
-          icon: <MdPeople />,
-        },
-      ],
-    },
-    {
-      title: "User",
-      list: [
-        {
-          title: "Settings",
-          path: "/dashboard/settings",
-          icon: <MdOutlineSettings />,
-        },
-        {
-          title: "Help",
-          path: "/dashboard/help",
-          icon: <MdHelpCenter />,
-        },
-      ],
-    },
-  ];
+  },
+  {
+    title: "Chức vụ",
+    list: [
+      {
+        title: "Settings",
+        path: "/dashboard/settings",
+        icon: <MdOutlineSettings />,
+      },
+      {
+        title: "Help",
+        path: "/dashboard/help",
+        icon: <MdHelpCenter />,
+      },
+    ],
+  },
+  {
+    title: "Quá trình công tác",
+    list: [
+      {
+        title: "Settings",
+        path: "/dashboard/settings",
+        icon: <MdOutlineSettings />,
+      },
+      {
+        title: "Help",
+        path: "/dashboard/help",
+        icon: <MdHelpCenter />,
+      },
+    ],
+  },
+  {
+    title: "Lương",
+    list: [
+      {
+        title: "Settings",
+        path: "/dashboard/settings",
+        icon: <MdOutlineSettings />,
+      },
+      {
+        title: "Help",
+        path: "/dashboard/help",
+        icon: <MdHelpCenter />,
+      },
+    ],
+  },
+  {
+    title: "Ngày nghỉ phép",
+    list: [
+      {
+        title: "Settings",
+        path: "/dashboard/settings",
+        icon: <MdOutlineSettings />,
+      },
+      {
+        title: "Help",
+        path: "/dashboard/help",
+        icon: <MdHelpCenter />,
+      },
+    ],
+  },
+];
 
 const Sidebar = () => {
-    return (
-        <div className="bg-[#182237] w-[20vw]">
-            {menuItems.map((item, index) => (
-                <div key={index}>
-                    <p>{item.title}</p>
-                </div>
+  return (
+    <div className="bg-[#182237] w-[20vw] h-[100vh]">
+      <ul>
+        {menuItems.map((item, index) => (
+          <div key={index}>
+            <li>{item.title}</li>
+            {item.list.map((subItem, index) => (
+              <li key={index} className="pl-8 ">
+                <a href={subItem.path} className="flex flex-row items-center">
+                  {subItem.icon}
+                  <p className="text-center">{subItem.title}</p>
+                </a>
+              </li>
             ))}
-        </div>
-    )
-}
+          </div>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-export default Sidebar
+export default Sidebar;
