@@ -1,5 +1,5 @@
 import React from "react";
-import QLModal from "@/app/ui/dashboard/nhanvien/quanlinhanvien.modal";
+import QLModal from "@/app/ui/dashboard/nhanvien/chinhsuanhanvien.modal";
 
 const QuanLiNhanVien = () => {
     return <div className="flex justify-around h-[100vh] mt-8">

@@ -12,16 +12,19 @@ import {
   Autocomplete,
   AutocompleteSection,
   AutocompleteItem,
+  Tooltip,
 } from "@nextui-org/react";
 import { useState } from "react";
+import { EditIcon } from "@/public/EditIcon";
 
-export default function QLModal({ func }) {
+export default function EditNVModal({ func }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [dataForm, setDataForm] = useState({
-    maPhongBan: "",
-    tenPhongBan: "",
-    vanPhong: "",
-    maTruongPhong: ""
+    maNhanVien: "",
+    tenNhanVien: "",
+    ngaySinh: "",
+    diaChi: "",
+    soDienThoai: ""
   });
 
   const onSubmit = () => {
@@ -37,7 +40,14 @@ export default function QLModal({ func }) {
 
   return (
     <div className="items-center">
-      <Button onPress={onOpen}>{func} nhân viên</Button>
+      <Tooltip content={func} color="primary">
+        <span
+          className="text-lg cursor-pointer active:opacity-50"
+          onClick={onOpen}
+        >
+          <EditIcon />
+        </span>
+      </Tooltip>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -48,36 +58,47 @@ export default function QLModal({ func }) {
               <ModalBody className="text-black">
                 <Input
                   type="text"
-                  label="Mã phòng ban"
-                  placeholder="Nhập vào mã phòng ban"
-                  name="maPhongBan"
+                  label="Mã nhân viên"
+                  placeholder="Nhập vào mã nhân viên"
+                  name="maNhanVien"
                   required
-                  value={dataForm.maPhongBan}
+                  value={dataForm.maNhanVien}
                   onChange={onChangeText}
                 />
                 <Input
                   type="text"
-                  label="Tên phòng ban"
-                  placeholder="Nhập vào tên phòng ban"
-                  name="tenPhongBan"
-                  value={dataForm.tenPhongBan}
-                  onChange={onChangeText}
-                />
-                <Input
-                  type="text"
-                  label="Văn phòng"
-                  placeholder="Nhập vào văn phòng"
-                  name="vanPhong"
-                  value={dataForm.vanPhong}
-                  onChange={onChangeText}
-                />
-                <Input
-                  type="text"
-                  label="Mã trưởng phòng"
-                  placeholder="Nhập vào mã trưởng phòng"
-                  name="maTruongPhong"
+                  label="Tên nhân viên"
+                  placeholder="Nhập vào tên nhân viên"
+                  name="tenNhanVien"
                   required
-                  value={dataForm.maTruongPhong}
+                  value={dataForm.tenNhanVien}
+                  onChange={onChangeText}
+                />
+                <Input
+                  type="text"
+                  label="Ngày sinh"
+                  placeholder="Nhập vào ngày sinh"
+                  name="ngaySinh"
+                  required
+                  value={dataForm.ngaySinh}
+                  onChange={onChangeText}
+                />
+                <Input
+                  type="text"
+                  label="Địa chỉ"
+                  placeholder="Nhập vào địa chỉ"
+                  name="diaChi"
+                  required
+                  value={dataForm.diaChi}
+                  onChange={onChangeText}
+                />
+                <Input
+                  type="text"
+                  label="Số điện thoại"
+                  placeholder="Nhập vào Số điện thoại"
+                  name="soDienThoai"
+                  required
+                  value={dataForm.soDienThoai}
                   onChange={onChangeText}
                 />
               </ModalBody>
