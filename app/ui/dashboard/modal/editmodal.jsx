@@ -13,13 +13,13 @@ import {
 import { useState, useEffect } from "react";
 import { EditIcon } from "@/public/EditIcon";
 
-export default function EditModal({ func, table, data }) {
+export default function EditModal({ func, table, data, columnName }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [dataForm, setDataForm] = useState({});
 
   useEffect(() => {
-    console.log("du lieu nhan duoc o modal", data);
     if (data) {
+      console.log("du lieu nhan duoc o modal", columnName);
       setDataForm(data); // Đặt dữ liệu ban đầu từ prop data
     }
   }, [data]);
@@ -58,7 +58,7 @@ export default function EditModal({ func, table, data }) {
                   <Input
                     key={key}
                     type="text"
-                    label={key.replace(/_/g, " ")} // Thay dấu _ bằng khoảng trắng để hiển thị
+                    label={key}
                     placeholder={`Nhập vào ${key.replace(/_/g, " ")}`}
                     name={key}
                     required

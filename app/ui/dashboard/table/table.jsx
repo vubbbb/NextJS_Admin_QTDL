@@ -15,7 +15,7 @@ import {
 import { EditIcon } from "@/public/EditIcon";
 import { DeleteIcon } from "@/public/DeleteIcon";
 import { EyeIcon } from "@/public/EyeIcon";
-import { columns, users } from "@/public/data";
+import EditModal from "@/app/ui/dashboard/modal/editmodal";
 
 const statusColorMap = {
   active: "success",
@@ -23,42 +23,10 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-export default function App() {
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
-
+export default function Custom_Table({ data, table, tableColumns, rowkey }) {
+  const renderCell = React.useCallback((item, columnKey) => {
+    const cellValue = item[columnKey];
     switch (columnKey) {
-      case "name":
-        return (
-          <User
-            className="text-black"
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
-            </p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={statusColorMap[user.status]}
-            size="sm"
-            variant="flat"
-          >
-            {cellValue}
-          </Chip>
-        );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -69,7 +37,7 @@ export default function App() {
             </Tooltip>
             <Tooltip content="Edit user">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
+                <EditModal func="Chỉnh sửa" data={item} table={table}/>
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
@@ -86,7 +54,7 @@ export default function App() {
 
   return (
     <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
+      <TableHeader columns={tableColumns}>
         {(column) => (
           <TableColumn
             key={column.uid}
@@ -96,11 +64,13 @@ export default function App() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={users}>
+      <TableBody items={data}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={rowkey}>
             {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+              <TableCell className="text-black">
+                {renderCell(item, columnKey)}
+              </TableCell>
             )}
           </TableRow>
         )}
