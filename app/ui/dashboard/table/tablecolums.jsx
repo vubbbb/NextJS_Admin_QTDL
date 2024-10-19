@@ -15,4 +15,11 @@ const NVcolumns = [
   { name: "Quản lí", uid: "actions" },
 ];
 
-export { PBcolumns, NVcolumns };
+const CVcolumns = [
+  { name: "Mã chức vụ", uid: "CV_MA" },
+  { name: "Tên chức vụ", uid: "CV_TenCV" },
+  { name: "Hệ số lương", uid: "CV_HSL" },
+  { name: "Quản lí", uid: "actions" },
+];
+
+export { PBcolumns, NVcolumns, CVcolumns };

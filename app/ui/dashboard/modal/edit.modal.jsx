@@ -18,11 +18,13 @@ export default function EditModal({ func, table, data, columnName }) {
   const [dataForm, setDataForm] = useState({});
 
   useEffect(() => {
-    if (data) {
-      console.log("du lieu nhan duoc o modal", columnName);
-      setDataForm(data); // Đặt dữ liệu ban đầu từ prop data
+    if (isOpen) {
+      if (data) {
+        console.log("du lieu nhan duoc o modal ", func, columnName);
+        setDataForm(data); // Đặt dữ liệu ban đầu từ prop data
+      }
     }
-  }, [data]);
+  }, [data, isOpen]);
 
   const onSubmit = () => {
     console.log(dataForm);
@@ -54,18 +56,22 @@ export default function EditModal({ func, table, data, columnName }) {
                 {func} {table.toLowerCase()}
               </ModalHeader>
               <ModalBody className="text-black">
-                {Object.keys(dataForm).map((key) => (
-                  <Input
-                    key={key}
-                    type="text"
-                    label={key}
-                    placeholder={`Nhập vào ${key.replace(/_/g, " ")}`}
-                    name={key}
-                    required
-                    value={dataForm[key]}
-                    onChange={onChangeText}
-                  />
-                ))}
+                {Object.keys(dataForm).map((key) => {
+                  // Tìm 'name' tương ứng với 'uid'
+                  const column = columnName.find((col) => col.uid === key);
+                  return (
+                    <Input
+                      key={key}
+                      type="text"
+                      label={column ? column.name : key} // Hiển thị name làm label
+                      placeholder={`Nhập vào ${column ? column.name.replace(/_/g, " ") : key}`}
+                      name={key}
+                      required
+                      value={dataForm[key]}
+                      onChange={onChangeText}
+                    />
+                  );
+                })}
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>

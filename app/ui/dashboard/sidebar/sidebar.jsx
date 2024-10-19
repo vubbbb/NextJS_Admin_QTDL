@@ -1,11 +1,11 @@
 import {
   MdDashboard,
   MdSupervisedUserCircle,
-//   MdShoppingBag,
-//   MdAttachMoney,
-//   MdWork,
-//   MdAnalytics,
-//   MdPeople,
+  //   MdShoppingBag,
+  //   MdAttachMoney,
+  //   MdWork,
+  //   MdAnalytics,
+  //   MdPeople,
   MdOutlineSettings,
   MdHelpCenter,
   // MdLogout,
@@ -20,40 +20,25 @@ const menuItems = [
         path: "/dashboard/phongban/danhsach",
         icon: <MdDashboard />,
       },
-      {
-        title: "Thêm, sửa, xóa",
-        path: "/dashboard/phongban/quanli",
-        icon: <MdSupervisedUserCircle />,
-      },
     ],
   },
   {
     title: "Nhân viên",
     list: [
-        {
-          title: "Danh sách",
-          path: "/dashboard/nhanvien/danhsach",
-          icon: <MdDashboard />,
-        },
-        {
-          title: "Thêm, sửa, xóa",
-          path: "/dashboard/nhanvien/quanli",
-          icon: <MdSupervisedUserCircle />,
-        },
-      ],
+      {
+        title: "Danh sách",
+        path: "/dashboard/nhanvien/danhsach",
+        icon: <MdDashboard />,
+      },
+    ],
   },
   {
     title: "Chức vụ",
     list: [
       {
-        title: "Settings",
-        path: "/dashboard/settings",
-        icon: <MdOutlineSettings />,
-      },
-      {
-        title: "Help",
-        path: "/dashboard/help",
-        icon: <MdHelpCenter />,
+        title: "Danh sách",
+        path: "/dashboard/chucvu/danhsach",
+        icon: <MdDashboard />,
       },
     ],
   },
@@ -106,7 +91,7 @@ const menuItems = [
 
 const Sidebar = () => {
   return (
-    <div className="bg-[#182237] w-[20vw] h-[100vh]">
+    <div className="bg-[#182237] w-[15vw] h-[100vh]">
       <ul>
         {menuItems.map((item, index) => (
           <div key={index}>
