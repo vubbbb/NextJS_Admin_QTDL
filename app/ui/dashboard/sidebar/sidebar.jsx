@@ -1,15 +1,11 @@
+'use client'
 import {
   MdDashboard,
   MdSupervisedUserCircle,
-  //   MdShoppingBag,
-  //   MdAttachMoney,
-  //   MdWork,
-  //   MdAnalytics,
-  //   MdPeople,
   MdOutlineSettings,
   MdHelpCenter,
-  // MdLogout,
 } from "react-icons/md";
+import Link from "next/link";
 
 const menuItems = [
   {
@@ -46,14 +42,9 @@ const menuItems = [
     title: "Quá trình công tác",
     list: [
       {
-        title: "Settings",
-        path: "/dashboard/settings",
-        icon: <MdOutlineSettings />,
-      },
-      {
-        title: "Help",
-        path: "/dashboard/help",
-        icon: <MdHelpCenter />,
+        title: "Danh sách",
+        path: "/dashboard/congtac/danhsach",
+        icon: <MdDashboard />,
       },
     ],
   },
@@ -61,47 +52,50 @@ const menuItems = [
     title: "Lương",
     list: [
       {
-        title: "Settings",
-        path: "/dashboard/settings",
-        icon: <MdOutlineSettings />,
-      },
-      {
-        title: "Help",
-        path: "/dashboard/help",
-        icon: <MdHelpCenter />,
+        title: "Danh sách",
+        path: "/dashboard/luong/danhsach",
+        icon: <MdDashboard />,
       },
     ],
   },
   {
-    title: "Ngày nghỉ phép",
+    title: "Nghỉ phép",
     list: [
       {
-        title: "Settings",
-        path: "/dashboard/settings",
-        icon: <MdOutlineSettings />,
+        title: "Danh sách",
+        path: "/dashboard/nghiphep/danhsach",
+        icon: <MdDashboard />,
       },
+    ],
+  },
+  {
+    title: "Danh mục lương",
+    list: [
       {
-        title: "Help",
-        path: "/dashboard/help",
-        icon: <MdHelpCenter />,
+        title: "Danh sách",
+        path: "/dashboard/dmluong/danhsach",
+        icon: <MdDashboard />,
       },
     ],
   },
 ];
 
 const Sidebar = () => {
+
+  // const router = useRouter();
+
   return (
     <div className="bg-[#182237] w-[15vw] h-[100vh]">
       <ul>
         {menuItems.map((item, index) => (
           <div key={index}>
             <li>{item.title}</li>
-            {item.list.map((subItem, index) => (
-              <li key={index} className="pl-8 ">
-                <a href={subItem.path} className="flex flex-row items-center">
+            {item.list.map((subItem, subIndex) => (
+              <li key={subIndex} className="pl-8">
+                <Link href={subItem.path} className="flex flex-row items-center">
                   {subItem.icon}
                   <p className="text-center">{subItem.title}</p>
-                </a>
+                </Link>
               </li>
             ))}
           </div>

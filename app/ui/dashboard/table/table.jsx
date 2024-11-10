@@ -24,7 +24,7 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-export default function Custom_Table({ data, table, tableColumns, rowkey }) {
+export default function Custom_Table({ data, table, tableColumns, rowkey, edit_route, onSuccess }) {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 10;
 
@@ -51,7 +51,7 @@ export default function Custom_Table({ data, table, tableColumns, rowkey }) {
             </Tooltip>
             <Tooltip content="Edit user">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditModal func="Chỉnh sửa" data={item} table={table} columnName={tableColumns} />
+                <EditModal func="Chỉnh sửa" data={item} table={table} columnName={tableColumns} edit_route={edit_route} rowkey={rowkey} onSuccess={onSuccess}/>
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
@@ -65,6 +65,20 @@ export default function Custom_Table({ data, table, tableColumns, rowkey }) {
         return cellValue;
     }
   }, []);
+
+  const generateRowKey = (item, rowkey) => {
+    const keys = rowkey.split(" ");
+    const keyParts = keys.map(key => {
+      if (item[key] === undefined) {
+        console.warn(`Key "${key}" is missing on item`, item);
+        return key; // Fallback to the key name as a part of the identifier
+      }
+      return item[key];
+    });
+    console.log("here",keyParts);
+    return keyParts.join("-");
+  };
+  
 
   return (
     <Table
@@ -95,7 +109,7 @@ export default function Custom_Table({ data, table, tableColumns, rowkey }) {
       </TableHeader>
       <TableBody items={items}>
         {(item, index) => (
-          <TableRow key={`${item[rowkey]}-${index}`}>
+          <TableRow key={`${generateRowKey(item, rowkey)}-${index}`}>
             {(columnKey) => (
               <TableCell className="text-black text-center">
                 {renderCell(item, columnKey)}
