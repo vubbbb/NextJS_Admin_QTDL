@@ -14,8 +14,8 @@ const DanhSachPhongBan = () => {
     console.log("here");
     const fetchData = async () => {
       const res = await apiClient.get(PHONGBAN_ROUTES);
-      const formattedData = formatDatesInData(res.data);
-      setData(formattedData);
+      // const formattedData = formatDatesInData(res.data);
+      setData(res.data);
     };
     fetchData();
   }, []);
@@ -50,17 +50,6 @@ const DanhSachPhongBan = () => {
         rowkey="PB_Ma"
         onSuccess={handleEditSuccess}
       />
-      <div className="flex justify-end mt-16">
-        <button className="btn btn-primary border-1 rounded-full p-2 bg-green-600">
-          <Addmodal
-            func="Thêm mới"
-            columnName={PBcolumns}
-            table="Phòng ban"
-            add_route={PHONGBAN_ROUTES}
-            onSuccess={handleSuccess}
-          />
-        </button>
-      </div>
     </div>
   );
 };

@@ -52,19 +52,9 @@ const DanhSachChucVu = () => {
         tableColumns={CVcolumns}
         edit_route={CHUCVU_ROUTES}
         rowkey="CV_Ma"
-        onSuccess={handleEditSuccess}
+        onEditSuccess={handleEditSuccess}
+        onAddSuccess={handleSuccess}
       />
-      <div className="flex justify-end mt-16">
-        <button className="btn btn-primary border-1 rounded-full p-2 bg-green-600">
-          <Addmodal
-            func="Thêm mới"
-            columnName={CVcolumns}
-            table="Chức vụ"
-            add_route={CHUCVU_ROUTES}
-            onSuccess={handleSuccess}
-          />
-        </button>
-      </div>
     </div>
   );
 };

@@ -55,17 +55,6 @@ const DanhSachNhanVien = () => {
         onSuccess={handleEditSuccess}
         rowkey="NV_Ma"
       />
-      <div className="flex justify-end mt-16">
-        <button className="btn btn-primary border-1 rounded-full p-2 bg-green-600">
-          <Addmodal
-            func="Thêm mới"
-            columnName={NVcolumns}
-            table="Nhân viên"
-            add_route={NHANVIEN_ROUTES}
-            onSuccess={handleSuccess}
-          />
-        </button>
-      </div>
     </div>
   );
 };

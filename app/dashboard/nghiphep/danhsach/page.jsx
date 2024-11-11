@@ -54,17 +54,6 @@ const DanhSachPhongBan = () => {
         edit_route={NGHIPHEP_ROUTES}
         rowkey="NN_Ma NV_Ma"
       />
-      <div className="flex justify-end mt-16">
-        <button className="btn btn-primary border-1 rounded-full p-2 bg-green-600">
-          <Addmodal
-            func="Thêm mới"
-            columnName={NPcolumns}
-            table="Nghỉ phép"
-            add_route={NGHIPHEP_ROUTES}
-            onSuccess={handleSuccess}
-          />
-        </button>
-      </div>
     </div>
   );
 };

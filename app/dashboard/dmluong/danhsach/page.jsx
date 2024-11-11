@@ -54,17 +54,6 @@ const DanhSachNhanVien = () => {
         edit_route={DMLUONG_ROUTES}
         rowkey="NV_Ma"
       />
-      <div className="flex justify-end mt-16">
-        <button className="btn btn-primary border-1 rounded-full p-2 bg-green-600">
-          <Addmodal
-            func="Thêm mới"
-            columnName={DMluongcolumns}
-            table="Danh mục lương"
-            add_route={DMLUONG_ROUTES}
-            onSuccess={handleSuccess}
-          />
-        </button>
-      </div>
     </div>
   );
 };
