@@ -3,7 +3,7 @@ import Custom_Table from "@/app/ui/dashboard/table/table";
 import { useEffect, useState, useContext } from "react";
 import apiClient from "@/app/lib/api-client";
 import { CHUCVU_ROUTES } from "@/app/utils/constants";
-import { CVcolumns } from "@/app/ui/dashboard/table/tablecolums";
+import { CVcolumns,EditCVcolumns } from "@/app/ui/dashboard/table/tablecolums";
 import Addmodal from "@/app/ui/dashboard/modal/add.modal";
 import { formatDatesInData, formatDate } from "@/app/utils/Date";
 
@@ -52,8 +52,12 @@ const DanhSachChucVu = () => {
         tableColumns={CVcolumns}
         edit_route={CHUCVU_ROUTES}
         rowkey="CV_Ma"
+        add_route={CHUCVU_ROUTES}
         onEditSuccess={handleEditSuccess}
         onAddSuccess={handleSuccess}
+        viewTableColumns={CVcolumns}
+        addTableColumns={CVcolumns}
+        editTableColumns={EditCVcolumns}
       />
     </div>
   );

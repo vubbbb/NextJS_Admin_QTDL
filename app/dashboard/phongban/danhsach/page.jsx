@@ -46,9 +46,14 @@ const DanhSachPhongBan = () => {
         data={data}
         table="Phòng ban"
         tableColumns={PBcolumns}
+        add_route={PHONGBAN_ROUTES}
         edit_route={PHONGBAN_ROUTES}
         rowkey="PB_Ma"
-        onSuccess={handleEditSuccess}
+        onEditSuccess={handleEditSuccess}
+        onAddSuccess={handleSuccess}
+        addTableColumns={PBcolumns}
+        editTableColumns={PBcolumns}
+        viewTableColumns={PBcolumns}
       />
     </div>
   );

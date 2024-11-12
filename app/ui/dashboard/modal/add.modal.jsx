@@ -45,7 +45,7 @@ export default function AddModal({
     try {
       if (Object.values(dataForm).every((item) => item !== "")) {
         setError("");
-        // Sao chép dataForm và chuyển đổi các trường ngày nếu có
+
         const updatedData = { ...dataForm };
         columnName.forEach((col) => {
           if (
@@ -53,6 +53,7 @@ export default function AddModal({
             col.name.toLowerCase().includes("ngày")
           ) {
             updatedData[col.uid] = formatDateForMySQL(updatedData[col.uid]);
+            console.log(updatedData[col.uid]);
           }
         });
 
@@ -60,17 +61,17 @@ export default function AddModal({
         if (res.status === 200) {
           alert(`Thêm mới ${table.toLowerCase()} thành công`);
           if (onAddSuccess) {
-            onAddSuccess(res.data);
+            onAddSuccess(res.data.data);
           }
-        } else {
-          alert(`Thêm mới ${table.toLowerCase()} thất bại`);
+          onClose();
         }
-        onClose();
       } else {
         setError("Vui lòng nhập đủ thông tin");
       }
     } catch (error) {
       console.error(error);
+      // Cập nhật trạng thái `error` với thông báo lỗi từ backend nếu có
+      setError(error.response?.data?.error || "Đã xảy ra lỗi khi thêm mới");
     }
   };
 

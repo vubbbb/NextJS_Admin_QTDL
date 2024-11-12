@@ -10,17 +10,12 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { useState, useEffect } from "react";
-import { EditIcon } from "@/public/EditIcon";
+import { EyeIcon } from "@/public/EyeIcon";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatDateForMySQL } from "@/app/utils/Date";
 
-export default function ViewModal({
-  func,
-  table,
-  data,
-  columnName,
-}) {
+export default function ViewModal({ func, table, data, columnName }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [dataForm, setDataForm] = useState({});
 
@@ -37,16 +32,18 @@ export default function ViewModal({
           className="text-lg cursor-pointer active:opacity-50"
           onClick={onOpen}
         >
-          <EditIcon />
+          <EyeIcon />
         </span>
       </Tooltip>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl">
-        <ModalContent >
+        <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-2 text-xl font-semibold text-gray-800">
                 <span>{func}</span>
-                <span className="text-sm text-gray-500">{table ? table.toLowerCase() : 'Unknown Table'}</span>
+                <span className="text-sm text-gray-500">
+                  {table ? table.toLowerCase() : "Unknown Table"}
+                </span>
               </ModalHeader>
               <ModalBody className="text-gray-700 max-h-[70vh] overflow-y-auto">
                 {/* Grid Layout for displaying fields */}
@@ -54,9 +51,7 @@ export default function ViewModal({
                   {Object.keys(dataForm).map((key) => {
                     const column = columnName.find((col) => col.uid === key);
                     const isDateField =
-                      column &&
-                      (column.name.toLowerCase().includes("date") ||
-                        column.name.toLowerCase().includes("ngày"));
+                      column && column.name.toLowerCase().includes("ngày");
 
                     return (
                       <div key={key} className="mb-6">

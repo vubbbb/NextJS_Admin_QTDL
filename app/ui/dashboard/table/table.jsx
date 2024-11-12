@@ -16,13 +16,21 @@ import { EyeIcon } from "@/public/EyeIcon";
 import EditModal from "@/app/ui/dashboard/modal/edit.modal";
 import Addmodal from "@/app/ui/dashboard/modal/add.modal";
 import ViewModal from "@/app/ui/dashboard/modal/viewInfo.modal";
+import CT_AddModal from "@/app/ui/dashboard/congtac/congtac.add.modal";
+import PB_AddModal from "@/app/ui/dashboard/phongban/phongban.add.modal";
+import PB_EditModal from "@/app/ui/dashboard/phongban/phongban.edit.modal";
+import CT_EditModal from "@/app/ui/dashboard/congtac/congtac.edit.modal";
 
 export default function Custom_Table({
   data,
   table,
   tableColumns,
+  viewTableColumns,
+  addTableColumns,
+  editTableColumns,
   rowkey,
   edit_route,
+  add_route,
   onEditSuccess,
   onAddSuccess,
 }) {
@@ -61,22 +69,58 @@ export default function Custom_Table({
                   <ViewModal
                     func="View Details"
                     data={item}
-                    columnName={tableColumns}
+                    columnName={
+                      viewTableColumns?.length ? viewTableColumns : tableColumns
+                    }
                     table={table}
                   />
                 </span>
               </Tooltip>
               <Tooltip content="Edit">
                 <span className="cursor-pointer">
-                  <EditModal
-                    func="Edit"
-                    data={item}
-                    table={table}
-                    columnName={tableColumns}
-                    edit_route={edit_route}
-                    rowkey={rowkey}
-                    onEditSuccess={onEditSuccess}
-                  />
+                  {table === "Phòng ban" ? (
+                    <PB_EditModal
+                      func="Edit"
+                      data={item}
+                      table={table}
+                      columnName={
+                        editTableColumns?.length
+                          ? editTableColumns
+                          : tableColumns
+                      }
+                      edit_route={edit_route}
+                      rowkey={rowkey}
+                      onEditSuccess={onEditSuccess}
+                    />
+                  ) : table === "Công tác" ? (
+                    <CT_EditModal
+                      func="Edit"
+                      data={item}
+                      table={table}
+                      columnName={
+                        editTableColumns?.length
+                          ? editTableColumns
+                          : tableColumns
+                      }
+                      edit_route={edit_route}
+                      rowkey={rowkey}
+                      onEditSuccess={onEditSuccess}
+                    />
+                  ) : (
+                    <EditModal
+                      func="Edit"
+                      data={item}
+                      table={table}
+                      columnName={
+                        editTableColumns?.length
+                          ? editTableColumns
+                          : tableColumns
+                      }
+                      edit_route={edit_route}
+                      rowkey={rowkey}
+                      onEditSuccess={onEditSuccess}
+                    />
+                  )}
                 </span>
               </Tooltip>
               <Tooltip color="danger" content="Delete">
@@ -113,13 +157,29 @@ export default function Custom_Table({
           }}
         />
         <button className="btn btn-primary border-1 rounded-full p-2 bg-green-600">
-          <Addmodal
-            func="Thêm mới"
-            columnName={tableColumns}
-            table="Chức vụ"
-            add_route={edit_route}
-            onAddSuccess={onAddSuccess}
-          />
+          {table === "Công tác" ? (
+            <CT_AddModal
+              onAddSuccess={onAddSuccess}
+              func={"Thêm mới công tác"}
+              add_route={add_route}
+            />
+          ) : table === "Phòng ban" ? (
+            <PB_AddModal
+              onAddSuccess={onAddSuccess}
+              func={"Thêm mới phòng ban"}
+              add_route={add_route}
+            />
+          ) : (
+            <Addmodal
+              func="Thêm mới"
+              columnName={
+                addTableColumns?.length ? addTableColumns : tableColumns
+              }
+              table={table}
+              add_route={add_route}
+              onAddSuccess={onAddSuccess}
+            />
+          )}
         </button>
       </div>
 

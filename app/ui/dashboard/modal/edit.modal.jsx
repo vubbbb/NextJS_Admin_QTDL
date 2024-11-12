@@ -15,16 +15,16 @@ import { EditIcon } from "@/public/EditIcon"; // Đảm bảo rằng bạn đã 
 import apiClient from "@/app/lib/api-client"; // Đảm bảo rằng apiClient được định nghĩa đúng
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { formatDateForMySQL } from "@/app/utils/Date"; // Đảm bảo có hàm này để định dạng ngày tháng
+import { formatDateForMySQL, formatDatesInData } from "@/app/utils/Date"; // Đảm bảo có hàm này để định dạng ngày tháng
 
 export default function EditModal({
   func,
+  edit_route,
+  onEditSuccess,
   table,
   data,
   columnName,
-  edit_route,
   rowkey,
-  onEditSuccess,
 }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [dataForm, setDataForm] = useState({});
@@ -42,7 +42,9 @@ export default function EditModal({
           setRoute(`${edit_route}/${dataForm[rowkey]}`);
           break;
         case "Công tác":
-          setRoute(`${edit_route}/${dataForm.NV_Ma}/${dataForm.PB_Ma}/${dataForm.CV_Ma}`);
+          setRoute(
+            `${edit_route}/${dataForm.NV_Ma}/${dataForm.PB_Ma}/${dataForm.CV_Ma}`
+          );
           break;
         case "Nghỉ phép":
           setRoute(`${edit_route}/${dataForm.NN_Ma}/${dataForm.NV_Ma}`);
@@ -59,6 +61,7 @@ export default function EditModal({
   // Khởi tạo dữ liệu khi modal mở
   useEffect(() => {
     if (isOpen && data) {
+      console.log(data);
       setDataForm(data);
     }
   }, [data, isOpen]);
@@ -69,7 +72,10 @@ export default function EditModal({
       // Sao chép dataForm và chuyển đổi các trường ngày nếu có
       const updatedData = { ...dataForm };
       columnName.forEach((col) => {
-        if (col.name.toLowerCase().includes("date") || col.name.toLowerCase().includes("ngày")) {
+        if (
+          col.name.toLowerCase().includes("date") ||
+          col.name.toLowerCase().includes("ngày")
+        ) {
           updatedData[col.uid] = formatDateForMySQL(updatedData[col.uid]);
         }
       });
@@ -97,11 +103,19 @@ export default function EditModal({
     });
   };
 
-  // Hàm thay đổi giá trị của DatePicker
+  // Hàm kiểm tra và chuyển đổi ngày hợp lệ
+  const isValidDate = (date) => {
+    // Kiểm tra nếu ngày hợp lệ, nếu không trả về false
+    return !isNaN(Date.parse(date));
+  };
+
+  // Hàm thay đổi giá trị của DatePicker, mặc định là ngày hiện tại nếu date không hợp lệ
   const onDateChange = (date, key) => {
+    // Kiểm tra nếu date hợp lệ, nếu không thì sử dụng ngày hiện tại
+    const validDate = isValidDate(date) ? new Date(date) : new Date();
     setDataForm({
       ...dataForm,
-      [key]: date ? date.toISOString() : "", // Đảm bảo rằng ngày được lưu dưới định dạng chuẩn
+      [key]: validDate,
     });
   };
 
@@ -128,58 +142,65 @@ export default function EditModal({
               <ModalBody className="text-gray-700 max-h-[70vh] overflow-y-auto">
                 {/* Grid Layout for displaying fields */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {Object.keys(dataForm).map((key) => {
-                    const column = columnName.find((col) => col.uid === key);
-                    const isDateField =
-                      column &&
-                      (column.name.toLowerCase().includes("date") ||
-                        column.name.toLowerCase().includes("ngày"));
+                  {Object.keys(dataForm)
+                    .filter((key) => columnName.some((col) => col.uid === key)) // Lọc chỉ các cột có trong columnName
+                    .map((key) => {
+                      const column = columnName.find((col) => col.uid === key);
+                      const isDateField =
+                        column &&
+                        (column.name.toLowerCase().includes("date") ||
+                          column.name.toLowerCase().includes("ngày"));
 
-                    return (
-                      <div key={key} className="mb-6">
-                        <div className="flex items-center justify-between">
-                          <label className="block font-medium text-gray-600">
-                            {column ? (
-                              <>
-                                <span className="text-red-600">*</span>{" "}
-                                {column.name}
-                              </>
+                      return (
+                        <div key={key} className="mb-6">
+                          <div className="flex items-center justify-between">
+                            <label className="block font-medium text-gray-600">
+                              {column ? (
+                                <>
+                                  <span className="text-red-600">*</span>{" "}
+                                  {column.name}
+                                </>
+                              ) : (
+                                key
+                              )}
+                            </label>
+                          </div>
+                          <div className="mt-2">
+                            {isDateField ? (
+                              <DatePicker
+                                selected={
+                                  isValidDate(dataForm[key])
+                                    ? new Date(dataForm[key])
+                                    : new Date() // Nếu ngày không hợp lệ, sử dụng ngày hiện tại
+                                }
+                                onChange={(date) => onDateChange(date, key)}
+                                dateFormat="dd/MM/yyyy"
+                                className="w-full p-2 border rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              />
                             ) : (
-                              key
+                              <Input
+                                type="text"
+                                placeholder={`Nhập vào ${
+                                  column
+                                    ? column.name
+                                        .replace(/_/g, " ")
+                                        .toLowerCase()
+                                    : key
+                                }`}
+                                name={key}
+                                required
+                                value={dataForm[key]}
+                                onChange={onChangeText}
+                                className="w-full p-2 border rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              />
                             )}
-                          </label>
+                          </div>
                         </div>
-                        <div className="mt-2">
-                          {isDateField ? (
-                            <DatePicker
-                              selected={
-                                dataForm[key] ? new Date(dataForm[key]) : null
-                              }
-                              onChange={(date) => onDateChange(date, key)}
-                              dateFormat="dd/MM/yyyy"
-                              className="w-full p-2 border rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                          ) : (
-                            <Input
-                              type="text"
-                              placeholder={`Nhập vào ${
-                                column
-                                  ? column.name.replace(/_/g, " ").toLowerCase()
-                                  : key
-                              }`}
-                              name={key}
-                              required
-                              value={dataForm[key]}
-                              onChange={onChangeText}
-                              className="w-full p-2 border rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </div>
               </ModalBody>
+
               <ModalFooter>
                 {error && <p className="text-red-600 text-sm">{error}</p>}
                 <Button

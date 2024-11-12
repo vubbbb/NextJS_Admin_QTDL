@@ -9,9 +9,9 @@ const Navbar = () => {
       {/* Links for larger screens */}
       <div className="hidden md:flex space-x-6">
         <a href="/dashboard" className="hover:text-gray-300">Dashboard</a>
-        <a href="/profile" className="hover:text-gray-300">Profile</a>
-        <a href="/settings" className="hover:text-gray-300">Settings</a>
-        <a href="/help" className="hover:text-gray-300">Help</a>
+        <a href="/dashboard/donxinnghiphep" className="hover:text-gray-300">Đơn xin nghỉ phép</a>
+        <a href="/dashboard/settings" className="hover:text-gray-300">Settings</a>
+        <a href="/dashboard/help" className="hover:text-gray-300">Help</a>
       </div>
 
       {/* Profile and Toggle Menu for Small Screens */}

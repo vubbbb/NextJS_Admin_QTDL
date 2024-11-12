@@ -3,7 +3,7 @@ import Custom_Table from "@/app/ui/dashboard/table/table";
 import { useEffect, useState } from "react";
 import apiClient from "@/app/lib/api-client";
 import { NHANVIEN_ROUTES } from "@/app/utils/constants";
-import { NVcolumns } from "@/app/ui/dashboard/table/tablecolums";
+import { NVcolumns, ViewNVcolumns, AddNVcolumns, EditNVcolumns } from "@/app/ui/dashboard/table/tablecolums";
 import Addmodal from "@/app/ui/dashboard/modal/add.modal";
 import { formatDatesInData, formatDate } from "@/app/utils/Date";
 const DanhSachNhanVien = () => {
@@ -15,8 +15,8 @@ const DanhSachNhanVien = () => {
     console.log("here");
     const fetchData = async () => {
       const res = await apiClient.get(NHANVIEN_ROUTES);
-      const formattedData = formatDatesInData(res.data);
-      setData(formattedData);
+      // const formattedData = formatDatesInData(res.data);
+      setData(res.data);
     };
     fetchData();
   }, []);
@@ -52,7 +52,12 @@ const DanhSachNhanVien = () => {
         table="Nhân viên"
         tableColumns={NVcolumns}
         edit_route={NHANVIEN_ROUTES}
-        onSuccess={handleEditSuccess}
+        add_route={NHANVIEN_ROUTES}
+        onEditSuccess={handleEditSuccess}
+        onAddSuccess={handleSuccess}
+        viewTableColumns={ViewNVcolumns}
+        addTableColumns={AddNVcolumns}
+        editTableColumns={EditNVcolumns}
         rowkey="NV_Ma"
       />
     </div>

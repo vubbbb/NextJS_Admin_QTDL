@@ -11,6 +11,7 @@
   "dependencies": {
     "@next/eslint-plugin-next": "14.0.1",
     "@nextui-org/autocomplete": "^2.1.7",
+    "@nextui-org/card": "^2.0.34",
     "@nextui-org/input": "^2.2.5",
     "@nextui-org/modal": "^2.0.41",
     "@nextui-org/react": "^2.4.8",
@@ -21,9 +22,9 @@
     "dotenv": "^16.4.5",
     "framer-motion": "^11.11.9",
     "next": "14.0.1",
-    "react": "18",
+    "react": "^18.3.1",
     "react-datepicker": "^7.5.0",
-    "react-dom": "18",
+    "react-dom": "^18.3.1",
     "react-icons": "4.11",
     "react-router-dom": "^6.28.0",
     "react-toastify": "^10.0.6"
