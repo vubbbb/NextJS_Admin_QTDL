@@ -11,7 +11,7 @@ import {
   TableCell,
   Button,
 } from "@nextui-org/react";
-import apiClient from "@/app/lib/api-client"; // Đảm bảo rằng bạn đã import apiClient đúng cách
+import apiClient from "@/app/lib/api-client";
 import { NGHIPHEP_ROUTES, NHANVIEN_ROUTES } from "@/app/utils/constants";
 import { formatDatesInData } from "../utils/Date";
 
@@ -23,9 +23,10 @@ export default function Dashboard() {
     const fetchLeaveData = async () => {
       try {
         const response = await apiClient.get(NGHIPHEP_ROUTES);
-        console.log(response.data);
-        const finaldata = formatDatesInData(response.data);
-        // Sắp xếp theo NN_Ma giảm dần
+        const filteredData = response.data.filter(
+          (item) => item.NN_KiemDuyet === 0
+        );
+        const finaldata = formatDatesInData(filteredData);
         const sortedData = finaldata.sort((a, b) =>
           b.NN_Ma.localeCompare(a.NN_Ma)
         );
@@ -37,14 +38,13 @@ export default function Dashboard() {
     const fetchDonDK = async () => {
       try {
         const response = await apiClient.get(NHANVIEN_ROUTES);
-        console.log(response.data);
         const filteredData = response.data.filter(
           (item) => item.NV_KiemDuyet === 0
         );
         const finaldata = formatDatesInData(filteredData);
         setNVDangKy(finaldata);
       } catch (error) {
-        console.error("Failed to fetch leave data", error);
+        console.error("Failed to fetch employee data", error);
       }
     };
     fetchLeaveData();
@@ -66,12 +66,14 @@ export default function Dashboard() {
     }
   };
 
-  const handleApproveEmployee = async (id) => {
+  const handleApproveEmployee = async (NV_Ma) => {
     try {
-      await apiClient.put(`${NHANVIEN_ROUTES}/${id}`, { NV_KiemDuyet: 1 });
+      await apiClient.put(`${NHANVIEN_ROUTES}/kiemduyet/${NV_Ma}`, {
+        NV_KiemDuyet: 1,
+      });
       setNVDangKy((prev) =>
         prev.map((employee) =>
-          employee.id === id ? { ...employee, NV_KiemDuyet: 1 } : employee
+          employee.NV_Ma === NV_Ma ? { ...employee, NV_KiemDuyet: 1 } : employee
         )
       );
     } catch (error) {
@@ -96,7 +98,7 @@ export default function Dashboard() {
               </TableHeader>
               <TableBody>
                 {nghipheps.map((leave) => (
-                  <TableRow key={leave.id}>
+                  <TableRow key={leave.NN_Ma}>
                     <TableCell>{leave.NV_Ma}</TableCell>
                     <TableCell>{leave.NN_NgayNghi}</TableCell>
                     <TableCell>{leave.NN_GhiChu}</TableCell>
@@ -142,7 +144,7 @@ export default function Dashboard() {
               </TableHeader>
               <TableBody>
                 {NVDangky.map((employee) => (
-                  <TableRow key={employee.id}>
+                  <TableRow key={employee.NV_Ma}>
                     <TableCell>{employee.NV_Ma}</TableCell>
                     <TableCell>{employee.NV_TenNV}</TableCell>
                     <TableCell>{employee.NV_DiaChi}</TableCell>
@@ -155,7 +157,7 @@ export default function Dashboard() {
                       {employee.NV_KiemDuyet === 0 && (
                         <Button
                           auto
-                          onClick={() => handleApproveEmployee(employee.id)}
+                          onClick={() => handleApproveEmployee(employee.NV_Ma)}
                         >
                           Duyệt
                         </Button>

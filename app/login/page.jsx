@@ -3,7 +3,7 @@ import { Input, Button } from "@nextui-org/react";
 import { EyeFilledIcon } from "../../public/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../../public/EyeSlashFilledIcon";
 import { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "@/app/context/AuthContext";
 import apiClient from "../lib/api-client";
 import { LOGIN_ROUTES } from "../utils/constants";
 

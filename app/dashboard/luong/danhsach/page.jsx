@@ -1,5 +1,6 @@
 "use client";
 import Custom_Table from "@/app/ui/dashboard/table/table";
+import Luong_Table from "@/app/ui/dashboard/luong/luong.table";
 import { useEffect, useState } from "react";
 import apiClient from "@/app/lib/api-client";
 import { LUONG_ROUTES } from "@/app/utils/constants";
@@ -49,7 +50,7 @@ const DanhSachNhanVien = () => {
 
   return (
     <div>
-      <Custom_Table
+      <Luong_Table
         data={data}
         table="Lương"
         tableColumns={Luongcolumns}

@@ -1,11 +1,11 @@
 import { Inter } from "next/font/google";
 import "./global.css";
-import { AuthContext, AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Admin Dashboard",
+  title: "Quản lý nhân sự",
   description: "Next.js Admin Dashboard",
 };
 
