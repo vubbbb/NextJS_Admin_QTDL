@@ -1,4 +1,9 @@
+'use client'
+import {AuthContext} from '@/app/context/AuthContext'
+import { useContext } from 'react';
+
 const Navbar = () => {
+  const { logout } = useContext(AuthContext);
   return (
     <div className="bg-[#3f475a] text-white w-full px-4 py-2 flex justify-between items-center shadow-md">
       {/* Logo / Title */}
@@ -11,7 +16,7 @@ const Navbar = () => {
         <a href="/dashboard" className="hover:text-gray-300">Dashboard</a>
         <a href="/dashboard/donxinnghiphep" className="hover:text-gray-300">Đơn xin nghỉ phép</a>
         <a href="/dashboard/settings" className="hover:text-gray-300">Settings</a>
-        <a href="/dashboard/help" className="hover:text-gray-300">Help</a>
+        <button onClick={logout} className="hover:text-gray-300">Đăng xuất</button>
       </div>
 
       {/* Profile and Toggle Menu for Small Screens */}

@@ -107,6 +107,24 @@ const DMluongcolumns = [
   { name: "Lương cơ bản", uid: "LUONG_LuongCoBan" },
   { name: "Phụ cấp", uid: "LUONG_PhuCap" },
   { name: "Khấu trừ thuế", uid: "LUONG_KhauTruThue" },
+  { name: "Quản lí", uid: "actions" },
+];
+
+const EditDMluongcolumns = [
+  { name: "Mã nhân viên", uid: "NV_Ma" },
+  { name: "Lương cơ bản", uid: "LUONG_LuongCoBan" },
+  { name: "Phụ cấp", uid: "LUONG_PhuCap" },
+  { name: "Khấu trừ thuế", uid: "LUONG_KhauTruThue" },
+  { name: "Ngày bắt đầu", uid: "LUONG_BatDau" },
+  { name: "Ngày kết thúc", uid: "LUONG_KetThuc" },
+  { name: "Quản lí", uid: "actions" },
+];
+
+const ViewDMluongcolumns = [
+  { name: "Mã nhân viên", uid: "NV_Ma" },
+  { name: "Lương cơ bản", uid: "LUONG_LuongCoBan" },
+  { name: "Phụ cấp", uid: "LUONG_PhuCap" },
+  { name: "Khấu trừ thuế", uid: "LUONG_KhauTruThue" },
   { name: "Ngày bắt đầu", uid: "LUONG_BatDau" },
   { name: "Ngày kết thúc", uid: "LUONG_KetThuc" },
   { name: "Quản lí", uid: "actions" },
@@ -124,5 +142,7 @@ export {
   ViewNVcolumns,
   AddNVcolumns,
   EditNVcolumns,
-  EditCVcolumns
+  EditCVcolumns,
+  EditDMluongcolumns,
+  ViewDMluongcolumns,
 };

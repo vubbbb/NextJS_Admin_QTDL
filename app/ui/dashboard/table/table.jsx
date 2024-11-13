@@ -20,6 +20,8 @@ import CT_AddModal from "@/app/ui/dashboard/congtac/congtac.add.modal";
 import PB_AddModal from "@/app/ui/dashboard/phongban/phongban.add.modal";
 import PB_EditModal from "@/app/ui/dashboard/phongban/phongban.edit.modal";
 import CT_EditModal from "@/app/ui/dashboard/congtac/congtac.edit.modal";
+import SalaryEditModal from "@/app/ui/dashboard/dmluong/dmluong.edit.modal";
+import DMLuong_AddModal from "@/app/ui/dashboard/dmluong/dmluong.add.modal";
 
 export default function Custom_Table({
   data,
@@ -106,6 +108,20 @@ export default function Custom_Table({
                       rowkey={rowkey}
                       onEditSuccess={onEditSuccess}
                     />
+                  ) : table === "Danh mục lương" ? (
+                    <SalaryEditModal
+                      func="Edit"
+                      data={item}
+                      table={table}
+                      columnName={
+                        editTableColumns?.length
+                          ? editTableColumns
+                          : tableColumns
+                      }
+                      edit_route={edit_route}
+                      rowkey={rowkey}
+                      onEditSuccess={onEditSuccess}
+                    />
                   ) : (
                     <EditModal
                       func="Edit"
@@ -165,6 +181,12 @@ export default function Custom_Table({
             />
           ) : table === "Phòng ban" ? (
             <PB_AddModal
+              onAddSuccess={onAddSuccess}
+              func={"Thêm mới phòng ban"}
+              add_route={add_route}
+            />
+          ): table === "Danh mục lương" ? (
+            <DMLuong_AddModal
               onAddSuccess={onAddSuccess}
               func={"Thêm mới phòng ban"}
               add_route={add_route}

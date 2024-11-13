@@ -14,10 +14,18 @@ import {
 import apiClient from "@/app/lib/api-client";
 import { NGHIPHEP_ROUTES, NHANVIEN_ROUTES } from "@/app/utils/constants";
 import { formatDatesInData } from "../utils/Date";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
   const [nghipheps, setNghiPheps] = useState([]);
   const [NVDangky, setNVDangKy] = useState([]);
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    }
+  }, [router]);
 
   useEffect(() => {
     const fetchLeaveData = async () => {
